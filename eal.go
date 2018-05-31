@@ -2,7 +2,7 @@ package dpdk
 
 /*
 #cgo CFLAGS: -m64 -pthread -O3 -march=native -I/usr/local/include/dpdk
-#cgo LDFLAGS: -L/usr/local/lib -ldpdk -lz -lrt -lm -ldl -lfuse
+#cgo LDFLAGS: -L/usr/local/lib/dpdk -ldpdk -lz -lrt -lm -ldl
 
 extern void go_usage_hook(char *prg);
 
@@ -16,6 +16,7 @@ typedef const char* const_char_ptr;
 import "C"
 import "unsafe"
 
+// 自己把 DPDK 编译好 然后 headers libs 放到 /usr/local/include /usr/local/lib 目录
 const (
 	RTE_PROC_AUTO    = int(C.RTE_PROC_AUTO)
 	RTE_PROC_PRIMARY = int(C.RTE_PROC_PRIMARY)

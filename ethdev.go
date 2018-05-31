@@ -2,7 +2,7 @@ package dpdk
 
 /*
 #cgo CFLAGS: -m64 -pthread -O3 -march=native -I/usr/local/include/dpdk
-#cgo LDFLAGS: -L/usr/local/lib -ldpdk -lz -lrt -lm -ldl -lfuse
+#cgo LDFLAGS: -L/usr/local/lib/dpdk -ldpdk -lz -lrt -lm -ldl
 
 #include <rte_config.h>
 #include <rte_ethdev.h>
@@ -136,12 +136,15 @@ const (
 )
 
 /* enum rte_eth_dev_type */
+// not have in dpdk-stable-16.11.3
+/*
 const (
 	RTE_ETH_DEV_UNKNOWN = int(C.RTE_ETH_DEV_UNKNOWN)
 	RTE_ETH_DEV_PCI     = int(C.RTE_ETH_DEV_PCI)
 	RTE_ETH_DEV_VIRTUAL = int(C.RTE_ETH_DEV_VIRTUAL)
 	RTE_ETH_DEV_MAX     = int(C.RTE_ETH_DEV_MAX)
 )
+*/
 
 /* enum rte_eth_event_type */
 const (
@@ -268,7 +271,10 @@ func RteEthDevSocketID(port_id uint) uint {
 }
 
 func RteEthMacAddr(port_id uint) string {
-	var addr C.struct_ether_addr
-	C.rte_eth_macaddr_get(C.uint8_t(port_id), &addr)
-	return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", addr.addr_bytes[0], addr.addr_bytes[1], addr.addr_bytes[2], addr.addr_bytes[3], addr.addr_bytes[4], addr.addr_bytes[5])
+	//var addr C.struct_ether_addr
+	var addr EtherAddr
+	C.rte_eth_macaddr_get(C.uint8_t(port_id), (*C.struct_ether_addr)(unsafe.Pointer(&addr)))
+	//C.rte_eth_macaddr_get(C.uint8_t(port_id), &addr)
+	//return fmt.Sprintf("%02x:%02x:%02x:%02x:%02x:%02x", addr.addr_bytes[0], addr.addr_bytes[1], addr.addr_bytes[2], addr.addr_bytes[3], addr.addr_bytes[4], addr.addr_bytes[5])
+	return addr.String()
 }

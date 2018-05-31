@@ -2,7 +2,7 @@ package dpdk
 
 /*
 #cgo CFLAGS: -m64 -pthread -O3 -march=native -I/usr/local/include/dpdk
-#cgo LDFLAGS: -L/usr/local/lib -ldpdk -lz -lrt -lm -ldl -lfuse
+#cgo LDFLAGS: -L/usr/local/lib/dpdk -ldpdk -lz -lrt -lm -ldl
 
 #include <rte_config.h>
 #include <rte_ether.h>
@@ -78,6 +78,7 @@ func (addr *EtherAddr) Copy() *EtherAddr {
 }
 
 func (addr *EtherAddr) String() string {
+	// TODO 这里应该是 bug  out 没被分配内存
 	var out *C.char
 	C.ether_format_addr(out, C.uint16_t(6),
 		(*C.struct_ether_addr)(unsafe.Pointer(addr)))

@@ -2,7 +2,7 @@ package dpdk
 
 /*
 #cgo CFLAGS: -m64 -pthread -O3 -march=native -I/usr/local/include/dpdk
-#cgo LDFLAGS: -L/usr/local/lib -ldpdk -lz -lrt -lm -ldl -lfuse
+#cgo LDFLAGS: -L/usr/local/lib/dpdk -ldpdk -lz -lrt -lm -ldl
 
 #include <rte_config.h>
 #include <rte_mempool.h>
@@ -71,11 +71,11 @@ func (mp *RteMemPool) Get(obj *unsafe.Pointer) int {
 }
 
 func (mp *RteMemPool) Count() uint {
-	return uint(C.rte_mempool_count((*C.struct_rte_mempool)(mp)))
+	return uint(C.rte_mempool_avail_count((*C.struct_rte_mempool)(mp)))
 }
 
 func (mp *RteMemPool) FreeCount() uint {
-	return uint(C.rte_mempool_free_count((*C.struct_rte_mempool)(mp)))
+	return uint(C.rte_mempool_in_use_count((*C.struct_rte_mempool)(mp)))
 }
 
 func (mp *RteMemPool) Full() bool {

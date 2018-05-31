@@ -2,7 +2,7 @@ package dpdk
 
 /*
 #cgo CFLAGS: -m64 -pthread -O3 -march=native -I/usr/local/include/dpdk
-#cgo LDFLAGS: -L/usr/local/lib -ldpdk -lz -lrt -lm -ldl -lfuse
+#cgo LDFLAGS: -L/usr/local/lib/dpdk -ldpdk -lz -lrt -lm -ldl
 
 #include <rte_config.h>
 #include <rte_mbuf.h>
@@ -17,10 +17,7 @@ const (
 	PKT_RX_L4_CKSUM_BAD                 = uint64(C.PKT_RX_L4_CKSUM_BAD)
 	PKT_RX_IP_CKSUM_BAD                 = uint64(C.PKT_RX_IP_CKSUM_BAD)
 	PKT_RX_EIP_CKSUM_BAD                = uint64(C.PKT_RX_EIP_CKSUM_BAD)
-	PKT_RX_OVERSIZE                     = uint64(C.PKT_RX_OVERSIZE)
-	PKT_RX_HBUF_OVERFLOW                = uint64(C.PKT_RX_HBUF_OVERFLOW)
-	PKT_RX_RECIP_ERR                    = uint64(C.PKT_RX_RECIP_ERR)
-	PKT_RX_MAC_ERR                      = uint64(C.PKT_RX_MAC_ERR)
+	PKT_RX_VLAN_STRIPPED                = uint64(C.PKT_RX_VLAN_STRIPPED)
 	PKT_RX_IEEE1588_PTP                 = uint64(C.PKT_RX_IEEE1588_PTP)
 	PKT_RX_IEEE1588_TMST                = uint64(C.PKT_RX_IEEE1588_TMST)
 	PKT_RX_FDIR_ID                      = uint64(C.PKT_RX_FDIR_ID)

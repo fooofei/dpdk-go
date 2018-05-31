@@ -5,11 +5,11 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/feiskyer/dpdk-go"
+	"github.com/millken/dpdk-go"
 )
 
 // #cgo CFLAGS: -m64 -pthread -O3 -march=native -I/usr/local/include/dpdk
-// #cgo LDFLAGS: -L/usr/local/lib -Wl,--whole-archive -ldpdk -lz -Wl,--start-group -lrt -lm -ldl -lfuse -Wl,--end-group -Wl,--no-whole-archive
+// #cgo LDFLAGS: -L/usr/local/lib/dpdk -ldpdk -lz -Wl,--start-group -lrt -lm -ldl -Wl,--end-group
 import "C"
 
 func helloworld(arg unsafe.Pointer) int {
